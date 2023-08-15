@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block title %}
+    Log Book
+{% endblock %}
+
+{% block main %}
+    <h1>Log Book</h1>
+
+    {% if session %}
+        <h4>You currently have {{ item_sum }} saved items.</h4>
+        
+        <div class="my-2">
+            <h5>Add a new target</h5>
+        
+            <form action="/logbook" method="POST">
+                <div class="row mx-0">
+                    <div class="col-md-3">
+                        <label class="form-label">Target</label>
+                        <input class="form-control" name="target_name" type="text" id="target-name" required>
+                    </div> 
+                    <div class="col-md-2">
+                        <label class="form-label">RA</label>
+                        <input class="form-control" step=".0001" name="RA" type="number" id="RA">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Dec</label>
+                        <input class="form-control" step=".0001" name="dec" type="number" id="dec">
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label">Notes</label>
+                        <input class="form-control" name="notes" type="text" id="notes" required>
+                    </div>                
+                </div>
+
+                <div class="d-grid my-2">
+                    <button type="submit" class="btn btn-primary py-2 my-2" name="save">Save</button>
+                </div>
+                
+            </form>
+        </div>
+        
+
+        {% if item_sum > 0 %}
+
+            <div id="delete">
+
+                <form action="/logbook" method="POST">
+                    <div class="row mb-3">
+
+                        <div class="col-md-auto">
+                            <label for="list" class="col-form-label">Delete:</label>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <select class="form-select" id="list" name="list">
+                                
+                                <option selected disabled> Select target...</option>
+                                
+                                {% for item in list %}
+
+                                    <option value="{{ item.id }}">{{ item.target_name }}</option>
+
+                                {% endfor %}
+                            </select>                            
+                        </div>
+                        <div class="col-md-auto">
+                            <button type="submit" name="delete" class="btn btn-secondary col-md-auto">Delete</button>
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </div>
+
+            <div>
+                <h5>Your saved items:</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Target</th>
+                            <th scope="col">RA</th>
+                            <th scope="col">Dec</th>
+                            <th scope="col">Notes</th>
+                        </tr>                
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for item in list %}
+                        <tr>
+                            <td>{{ item.target_name }}</td>
+                            <td>{{ item.ra }}</td>
+                            <td>{{ item.dec }}</td>
+                            <td>{{ item.notes }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+            </div>
+        {% endif %}
+
+    {% else %}
+
+        <p>You can't use this feature unless logged in. Please <a href="login">log in or create a free account</a>.</p>
+    
+    {% endif %}
+
+{% endblock %}

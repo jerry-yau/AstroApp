@@ -1,0 +1,8 @@
+NASA: 2ce1NNzAB1ElJWdE9WxB1epV5fIKXRB1GgcHbKbS
+OpenWeather: 39f75b8efac5f7b24ba5a79c7362ff57
+
+FLASK_DEBUG=1
+FLASK_APP=app.py
+
+https://aa.usno.navy.mil/data/api
+https://sunrise-sunset.org/api

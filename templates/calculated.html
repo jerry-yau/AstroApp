@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}
+    Calculated!
+{% endblock %}
+
+{% block main %}
+    <h1>Calculated!</h1>
+
+    {% if alt_out < 0 and maxalt_out < 0 %}
+
+        <h5>At your location, your target is below the horizon at any point in time.</h5>
+
+    {% elif alt_out < 0 %}
+
+        <h5>At your location, your target is currently not visible, but will rise above the horizon at one point.</h5>
+    
+    {% else %}
+
+        <h5>At your location, your target is currently above the horizon.</h5>
+    
+    {% endif %}
+
+    <ul class="list-group">
+        <li class="list-group-item">The target's current altitude is {{ alt_out }} degrees.</li>
+        <li class="list-group-item">The star's maximum altitude today is {{ maxalt_out }} degrees.</li>
+    </ul>
+    <div class="fixed-bottom mx-2">
+        <p>Note 1: This calculation does not guarantee visibility as the target may only be above horizon during daylight.</p>
+        <p>Note 2: Please use resources like <a href="http://catserver.ing.iac.es/staralt/">staralt</a> for a detailed visibility chart.</p>
+    </div>
+    
+{% endblock %}

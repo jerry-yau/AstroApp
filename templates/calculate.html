@@ -6,10 +6,73 @@
 {% block main %}
     <h1 class="title">Calculator</h1>
 
-    <p>Use this tool below to help you determine if your object is visible now.</p>
+    <p>Use this tool below to help you determine if your object is visible today. If so, what is the max altitude.</p>
 
     <form method="POST" action="/calculate">
+        
+        
+        <div class="row mb-3">
+            
+            <div class="col-md-6">
+                <div class="row">
+                    
+                    <div class="col-md-6 mb-2">
+                        <input class="form-control" name="RA" id="RA" type="number" step=".0001" placeholder="RA" required>
+                    </div>
 
+                    <div class="col-md-6 mb-2">
+                        <input class="form-control" name="dec" id="dec" type="number" step=".0001" placeholder="Dec" required>
+                    </div>
+                </div>
+        
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <input class="form-control" name="lat" id="lat" type="number" step=".0001" placeholder="Latitude" required>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <input class="form-control" name="long" id="long" type="number" step=".0001" placeholder="Longitude" required>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+
+        <div class="my-2 d-grid">
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </div>
         
     </form>
+
+    <div id="explain">
+        <h4>Explanation:</h4>
+        <p>This is a 'rough' calculation of the altitude of the star, based on the formula*: <em>sin(alt) = sin(lat) sin(d) + cos(lat) cos(d) cos(H)</em></p>
+        <ul class="list-group">
+            <li><em>alt</em> = altitude</li>
+            <li><em>lat</em> = latitude</li>
+            <li><em>d</em> = declination of target</li>
+            <li><em>H</em> = hour angle of target</li>
+        </ul>
+
+        <p class="mt-3">The hour angle of the target can be worked out by using the local sidereal time and perform the following calculation: <em>H = LST - RA (360/24)</em></p>
+        <ul class="list-group">
+            <li><em>LST</em> = local sidereal time</li>
+            <li><em>RA</em> = right ascension of target</li>
+            <li><em>360/24</em> is the conversion factor from hours/mins to degrees</li>
+        </ul>
+        
+        <p class="mt-3 mb-0">For the maximum altitude, we ignore the hour angle term in the first formula.</p>
+
+        <p class="my-0">If altitude is negative, the star is below the horizon and therefore impossible to observe.</p>
+
+        <p class="my-0">Altitude of 30 degrees is generally accepted as the minimum for observations.</p>
+
+    </div>
+
+    <footer class="mx-2 border-top">
+        <p>Formula from <a href="https://spu.edu/ddowning/PHY1135/starelev.html">https://spu.edu/ddowning/PHY1135/starelev.html</a></p>
+    </footer>
 {% endblock %}

@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block title %}
+    Account
+{% endblock %}
+
+{% block main %}
+    <h1>Account Information</h1>
+    <p>You can change your account information here. Please enter current password to change any details.</p>
+
+    <form method="POST" action="/account">
+        <div id="name" class="row mb-3 mr-1">
+            <div class="col-md-6">
+                <label class="form-label">Change your name: (Your name is <u>{{ name }}</u>)</label>
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Change your username: (Your username is <u>{{ username }}</u>)</label>
+                <input type="text" class="form-control" name="username">
+            </div>
+            
+        </div>
+
+        <div id="city" class="mb-3 row">
+            <div class="col-md-9">
+                <label class="form-label">City (Your city is <u>{{ city }}</u>)</label>
+                <input type="text" class="form-control" name="city">
+            </div>
+            <div class="col-md-3 mt-3">
+                <span class="form-text">City name only.</span>
+            </div>
+
+        </div>
+
+        <div class="row mb-3">
+
+            <div class="col-md-6">
+                <label class="form-label">Change your password: </label>
+                <input type="password" class="form-control" name="password-new">
+            </div>
+
+
+            <div class="col-md-6">
+                <label class="form-label">Confirm new password:</label>
+                <input type="password" class="form-control" name="password-confirm">
+            </div>
+
+        </div>
+
+        <div class="mt-4 pt-2 border-top">
+            <label class="form-label">Current password: </label>
+            <input type="password" class="form-control" name="password-now" required>
+        </div>
+
+        <div class="d-grid">
+            <button class="btn btn-primary my-3" type="submit">Save Changes</button>
+        </div>
+        
+    </form>
+{% endblock %}
